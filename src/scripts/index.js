@@ -15,7 +15,7 @@ function addCategories(){
 addCategories()
 
 //Filtrar os albums nas categorias
-function filterGeneroMusical(products, categories){
+function filterGeneroMusical(products){
     const buttons = document.querySelectorAll(".nav_div-button")
     const section = document.querySelector(".albuns")
     
@@ -33,7 +33,7 @@ function filterGeneroMusical(products, categories){
         })
     })
 }
-filterGeneroMusical(products, categories)
+filterGeneroMusical(products)
 
 
 //Adicionar um Album
@@ -92,4 +92,19 @@ function addProduts(products){
     })
 }
 
-
+// Filtrar o array de acordo com o valor
+function filterByRange (products){
+    const inputRange = document.querySelector(".span_range-input")
+    inputRange.addEventListener("input", ()=>{
+        const valor = document.querySelector(".span_range-value")
+        valor.innerText = `Até R$ ${inputRange.value}`
+        const characterFilter = products.filter((product) => {
+            console.log(product.price)
+            console.log(inputRange.value)
+             return product.price <= inputRange.value 
+        })
+        filterGeneroMusical(characterFilter)
+            console.log(characterFilter)
+    })
+}
+filterByRange(products)
