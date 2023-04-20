@@ -1,5 +1,5 @@
 //Adicionar botoes da array de Categorias
-function addCategories(categories, products){
+function addCategories(){
     const div = document.querySelector(".nav_div")
 
     categories.forEach((categorie)=>{
@@ -8,32 +8,35 @@ function addCategories(categories, products){
         button.innerHTML = categorie
         button.classList.add("nav_div-button")
         button.id = categorie
-
+    
         div.appendChild(button)
     })
 }
-addCategories(categories, products)
+addCategories()
 
 //Filtrar os albums nas categorias
-function filterGeneroMusical(products){
+function filterGeneroMusical(products, categories){
     const buttons = document.querySelectorAll(".nav_div-button")
-    const adicionarProdutos = addProduts(products)
     const section = document.querySelector(".albuns")
-    section.innerHTML = ""
     
-    // console.log(buttons)
+    addProduts(products)
 
     buttons.forEach((button) =>{
-        button.addEventListener("click", (event)=>{          
-            const newProducts = products.filter(product => event.target.id === categories[product.category])
-            addProduts(newProducts)
+        button.addEventListener("click", (event)=>{ 
+            section.innerHTML = ""
+            if(button.id !== "Todos"){
+                const newProducts = products.filter(product => event.target.id === categories[product.category])
+                addProduts(newProducts)
+            } else{
+                addProduts(products)
+            }        
         })
     })
 }
-filterGeneroMusical(products)
+filterGeneroMusical(products, categories)
 
 
-//Adicionar um album Album
+//Adicionar um Album
 function addProduts(products){
     const section = document.querySelector(".albuns")
 
@@ -88,5 +91,5 @@ function addProduts(products){
         return section
     })
 }
-// addProduts(products)
+
 
