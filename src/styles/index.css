@@ -66,12 +66,11 @@ h1{
     background-color: var(--color-grey-1);
     color: var(--color-grey-8);
 }
-/* .section_range{} */
 .span_range{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
 }
 .span_range-title{
     color: var(--color-grey-1);
@@ -90,7 +89,6 @@ margin-bottom: 1rem;
    height: 0.5rem;
     background: var(--color-grey-5);
     cursor: pointer;
-   /* Ainda em processo */
 }
 
 
@@ -114,6 +112,11 @@ margin-bottom: 1rem;
     background-color: var(--color-grey-8);
     height: 16.1875rem;
     margin-bottom: 3rem;  
+
+    /* animacao */
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
 }
 .album:hover{
     background-color: var(--color-grey-6);
@@ -121,6 +124,17 @@ margin-bottom: 1rem;
 .album_img{
     width: 19.25rem;
     height: 7.0625rem;
+      /* animacao */
+    max-width: 100%;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.album_img:hover{
+      /* animacao */
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
 }
 .album-box{
     display: flex;

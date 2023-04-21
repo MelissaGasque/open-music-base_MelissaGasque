@@ -7,38 +7,50 @@ function addCategories(){
         const button = document.createElement("button")
         button.innerHTML = categorie
         button.classList.add("nav_div-button")
-        button.id = categorie
-    
+        button.id = categories.indexOf(categorie)
         div.appendChild(button)
     })
 }
 addCategories()
 
-//Filtrar os albums nas categorias
+//Filtrar os albums nas categorias e nos preços
 function filterGeneroMusical(products){
     const buttons = document.querySelectorAll(".nav_div-button")
-    const section = document.querySelector(".albuns")
+    const inputRange = document.querySelector(".span_range-input")
     
     addProduts(products)
+       
+    inputRange.addEventListener("input", ()=>{
+        const valor = document.querySelector(".span_range-value")
+        valor.innerText = `Até R$ ${inputRange.value}`
+   
+        const newProducts = products.filter(
+            (product) => product.price <= inputRange.value
+        );
+        addProduts(newProducts);
+    })
 
     buttons.forEach((button) =>{
-        button.addEventListener("click", (event)=>{ 
-            section.innerHTML = ""
-            if(button.id !== "Todos"){
-                const newProducts = products.filter(product => event.target.id === categories[product.category])
-                addProduts(newProducts)
-            } else{
-                addProduts(products)
-            }        
+        button.addEventListener("click", () =>{ 
+            inputRange.value = 40
+            if(button.id !== 0){
+                const newProducts = products.filter((product) =>
+                    product.category === button.id && product.price <= inputRange.value
+                );
+                addProduts(newProducts);
+            } else {
+                addProduts(products);
+            }
         })
     })
 }
-filterGeneroMusical(products)
+filterGeneroMusical(products);
 
 
 //Adicionar um Album
 function addProduts(products){
     const section = document.querySelector(".albuns")
+    section.innerHTML = ""
 
     products.forEach((product)=>{
 
@@ -92,19 +104,3 @@ function addProduts(products){
     })
 }
 
-// Filtrar o array de acordo com o valor
-function filterByRange (products){
-    const inputRange = document.querySelector(".span_range-input")
-    inputRange.addEventListener("input", ()=>{
-        const valor = document.querySelector(".span_range-value")
-        valor.innerText = `Até R$ ${inputRange.value}`
-        const characterFilter = products.filter((product) => {
-            console.log(product.price)
-            console.log(inputRange.value)
-             return product.price <= inputRange.value 
-        })
-        filterGeneroMusical(characterFilter)
-            console.log(characterFilter)
-    })
-}
-filterByRange(products)
