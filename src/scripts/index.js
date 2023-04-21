@@ -1,46 +1,36 @@
 //Adicionar botoes da array de Categorias
-function addCategories(){
+function addCategories(array){
     const div = document.querySelector(".nav_div")
 
-    categories.forEach((categorie)=>{
+    array.forEach((categorie)=>{
 
         const button = document.createElement("button")
         button.innerHTML = categorie
         button.classList.add("nav_div-button")
-        button.id = categories.indexOf(categorie)
+        button.id = array.indexOf(categorie)
         div.appendChild(button)
     })
 }
-addCategories()
+addCategories(categories)
 
-//Filtrar os albums nas categorias e nos preços
+//Filtrar os albums nas categorias 
 function filterGeneroMusical(products){
     const buttons = document.querySelectorAll(".nav_div-button")
     const inputRange = document.querySelector(".span_range-input")
-    
-    addProduts(products)
-       
-    inputRange.addEventListener("input", ()=>{
-        const valor = document.querySelector(".span_range-value")
-        valor.innerText = `Até R$ ${inputRange.value}`
-   
-        const newProducts = products.filter(
-            (product) => product.price <= inputRange.value
-        );
-        addProduts(newProducts);
-    })
-
+    const section = document.querySelector(".albuns")
+    section.innerHTML = ""
+    let newProducts = []
     buttons.forEach((button) =>{
         button.addEventListener("click", () =>{ 
-            inputRange.value = 40
-            if(button.id !== 0){
-                const newProducts = products.filter((product) =>
-                    product.category === button.id && product.price <= inputRange.value
-                );
-                addProduts(newProducts);
+           let buttonID = parseInt(button.id);
+            if( buttonID === 0){
+                newProducts = products
             } else {
-                addProduts(products);
-            }
+                newProducts = products.filter((product) => {
+                    return product.category === buttonID;
+                })
+            }  
+            addProduts(newProducts)           
         })
     })
 }
@@ -48,15 +38,14 @@ filterGeneroMusical(products);
 
 
 //Adicionar um Album
-function addProduts(products){
+function addProduts(array){
     const section = document.querySelector(".albuns")
     section.innerHTML = ""
 
-    products.forEach((product)=>{
-
+    array.forEach((product)=>{
         const article = document.createElement("article")
         article.classList.add("album")
-        article.id = products.id
+        article.id = array.id
 
         const img = document.createElement("img")
         img.src = product.img
@@ -99,8 +88,32 @@ function addProduts(products){
         divContainer.append(divBox, divTitle, divComprar)
         article.append(img, divContainer)
         section.appendChild(article)
-
-        return section
     })
 }
+addProduts(products)
 
+// //Adicionar texto quando não há Albums
+// function textoSemProdutos(){
+//     const section = document.querySelector(".albuns")
+//     const texto = document.createElement("p")
+//         texto.innerText = "Nenhum Album Encontrado"
+//         texto.id = "nenhumAlbum"
+//         section.appendChild(texto)
+        // return section
+// }
+// textoSemProdutos()      
+
+// Filtrar o array de acordo com o valor
+function filterByRange (products){
+    const inputRange = document.querySelector(".span_range-input")
+    inputRange.value = 90
+    inputRange.addEventListener("input", ()=>{
+        const valor = document.querySelector(".span_range-value")
+        valor.innerText = `Até R$ ${inputRange.value}`
+        const characterFilter = products.filter((product) => {
+             return product.price <= inputRange.value 
+        })
+        addProduts(characterFilter)
+    })
+}
+filterByRange(products)
