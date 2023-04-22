@@ -16,7 +16,6 @@ addCategories(categories)
 //Filtrar os albums nas categorias 
 function filterGeneroMusical(products){
     const buttons = document.querySelectorAll(".nav_div-button")
-    const inputRange = document.querySelector(".span_range-input")
     const section = document.querySelector(".albuns")
     section.innerHTML = ""
     let newProducts = []
@@ -90,18 +89,7 @@ function addProduts(array){
         section.appendChild(article)
     })
 }
-addProduts(products)
-
-// //Adicionar texto quando não há Albums
-// function textoSemProdutos(){
-//     const section = document.querySelector(".albuns")
-//     const texto = document.createElement("p")
-//         texto.innerText = "Nenhum Album Encontrado"
-//         texto.id = "nenhumAlbum"
-//         section.appendChild(texto)
-        // return section
-// }
-// textoSemProdutos()      
+addProduts(products) 
 
 // Filtrar o array de acordo com o valor
 function filterByRange (products){
